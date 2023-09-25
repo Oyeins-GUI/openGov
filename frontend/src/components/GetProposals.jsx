@@ -39,12 +39,12 @@ export default function GetProposals() {
    return (
       <>
          <Typography
+            variant="h4"
             sx={{
                marginTop: "80px",
                marginBottom: "10px",
                textAlign: "center",
             }}
-            variant="h4"
          >
             All Proposals
          </Typography>
