@@ -10,3 +10,8 @@ export function tupleToObject(tupleString) {
 
    return result;
 }
+// console.log(
+//    tupleToObject(
+//       '(tuple (decision "yah") (total-votes u1) (votes-in-support u1))'
+//    )
+// );

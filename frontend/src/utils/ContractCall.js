@@ -14,7 +14,7 @@ export async function callCreateProposal(title, niche, description) {
    const options = {
       network: testnet,
       contractAddress: "ST16FECHZJPM4Z95D0Y2G7MSPGK0JHHCAE3JT049N",
-      contractName: "open-gov",
+      contractName: "open-gov-v2",
       functionName: "create-proposal",
       functionArgs,
       appDetails: {
@@ -22,7 +22,57 @@ export async function callCreateProposal(title, niche, description) {
          icon: window.location.origin + "/my-app-logo.svg",
       },
       onFinish: (data) => {
-         const explorerTransactionUrl = `https://explorer.stacks.co/txid/${data.txId}`;
+         const explorerTransactionUrl = `https://explorer.stacks.co/txid/${data.txId}?chain=testnet`;
+         console.log("Stacks Transaction:", data.stacksTransaction);
+         console.log("Transaction ID:", data.txId);
+         console.log("Raw transaction:", data.txRaw);
+         console.log("View transaction in explorer:", explorerTransactionUrl);
+      },
+   };
+
+   await openContractCall(options);
+}
+
+export async function likeProposal(id) {
+   const functionArgs = [uintCV(id)];
+
+   const options = {
+      network: testnet,
+      contractAddress: "ST16FECHZJPM4Z95D0Y2G7MSPGK0JHHCAE3JT049N",
+      contractName: "open-gov-v2",
+      functionName: "like-proposal",
+      functionArgs,
+      appDetails: {
+         name: "openGov",
+         icon: window.location.origin + "/my-app-logo.svg",
+      },
+      onFinish: (data) => {
+         const explorerTransactionUrl = `https://explorer.stacks.co/txid/${data.txId}?chain=testnet`;
+         console.log("Stacks Transaction:", data.stacksTransaction);
+         console.log("Transaction ID:", data.txId);
+         console.log("Raw transaction:", data.txRaw);
+         console.log("View transaction in explorer:", explorerTransactionUrl);
+      },
+   };
+
+   await openContractCall(options);
+}
+
+export async function dislikeProposal(id) {
+   const functionArgs = [uintCV(id)];
+
+   const options = {
+      network: testnet,
+      contractAddress: "ST16FECHZJPM4Z95D0Y2G7MSPGK0JHHCAE3JT049N",
+      contractName: "open-gov-v2",
+      functionName: "dislike-proposal",
+      functionArgs,
+      appDetails: {
+         name: "openGov",
+         icon: window.location.origin + "/my-app-logo.svg",
+      },
+      onFinish: (data) => {
+         const explorerTransactionUrl = `https://explorer.stacks.co/txid/${data.txId}?chain=testnet`;
          console.log("Stacks Transaction:", data.stacksTransaction);
          console.log("Transaction ID:", data.txId);
          console.log("Raw transaction:", data.txRaw);

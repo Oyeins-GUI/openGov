@@ -1,5 +1,5 @@
 
-;; title: stacks-gov-board
+;; title: open-gov
 ;; version: 1.0.0
 ;; summary: different users can have a say on a proposal
 
@@ -45,8 +45,8 @@
       (map-set VotesInSupport { proposal-id: id } { votes: u0 })
       (map-set VotesAgainst { proposal-id: id } { votes: u0 })
       (map-set VotesForProposal { proposal-id: id } { total-votes: u0 })
-      (var-set proposals-id proposal-id)
-      (print { title: title, niche: niche, desc: desc, id: id, proposer: tx-sender, expiration: (+ block-height EXPIRATION) })
+      (var-set proposals-id id)
+      (unwrap-panic (contract-call? .create-event create-event title niche desc id tx-sender (+ block-height EXPIRATION)))
       (ok id)
    )
 )
@@ -67,7 +67,7 @@
       (map-set Voters { address: tx-sender, proposal-id: proposal-id } { decision: decision })
       (map-set VotesForProposal { proposal-id: proposal-id } { total-votes: (+ u1 total-votes) })
       (map-set VotesInSupport { proposal-id: proposal-id } { votes: (+ u1 votes-in-support) })
-      (print { total-votes: (+ u1 total-votes), votes-in-support: (+ u1 votes-in-support), decision: decision })
+      (print { total-votes: (+ u1 total-votes), votes-in-support: (+ u1 votes-in-support) })
       (ok "liked")
    )
 )
@@ -88,7 +88,7 @@
       (map-set Voters { address: tx-sender, proposal-id: proposal-id } { decision: decision })
       (map-set VotesForProposal { proposal-id: proposal-id } { total-votes: (+ u1 total-votes) })
       (map-set VotesAgainst { proposal-id: proposal-id } { votes: (+ u1 votes-against) })
-      (print { total-votes: (+ u1 total-votes), votes-against: (+ u1 votes-against), decision: decision })
+      (print { total-votes: (+ u1 total-votes), votes-against: (+ u1 votes-against) })
       (ok "disliked")
    )
 )
